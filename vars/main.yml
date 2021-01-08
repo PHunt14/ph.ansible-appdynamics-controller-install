@@ -1,0 +1,15 @@
+---
+
+appdynamics_user: appd
+appdynamics_platform_name: Demo
+platform_installation_directory: /opt
+appdynamics_user_private_key:
+appdynamics_controller_host:
+appdynamics_controller_admin_username:
+appdynamics_controller_admin_password:
+appdynamics_controller_root_password:
+appdynamics_controller_DB_root_password:
+appdynamics_controller_DB_user_password:
+appdynamics_controller_DB_host:
+appdynamics_controller_profile_size:
+appdynamics_controller_DB_port:

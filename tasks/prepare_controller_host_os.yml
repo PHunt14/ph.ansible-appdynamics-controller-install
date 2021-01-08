@@ -1,0 +1,37 @@
+---
+
+- name: ensure ntpd is running
+  block:
+  - yum:
+      name: ntp
+      state: installed
+      
+  - service:
+      name: ntpd
+      state: started
+      enabled: true
+      
+- name: verify MySQL is not present on the system
+  yum:
+    name: mysql*
+    state: absent
+    
+- name: ensure packages are installed
+  yum:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+    - net-tools
+    - libaio
+    - numactl
+    - tzdata
+    
+- name: configure user limits
+  template:
+    src: appdynamics.limits
+    dest: /etc/security/limits.d/appdynamics.conf
+    owner: root
+    group: root
+    mode: 0600
+    
+# add controller user?

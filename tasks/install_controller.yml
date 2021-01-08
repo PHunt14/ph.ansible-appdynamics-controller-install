@@ -1,0 +1,20 @@
+---
+
+- name: login to the Enterprise Console
+  shell: "{{ enterprise_controller_home }}/bin/platform-admin.sh login -u {{ enterprise_console_admin_userame }} -p {{ enterprise_console_admin_password }}"
+  no_log: true
+  
+- name: create the Platform
+  shell: "{{ enterprise_controller_home }}/bin/platform-admin.sh create-platform --name {{ appdynamics_platform_name }} --installation-dir {{ platform_installation_directory }}"
+  
+- name: add AppDynamics credentials
+  shell: "{{ enterprise_controller_home }}/bin/platform-admin.sh add-credential --credential-name {{ appdynamics_user }} --type ssh --user-name {{ appdynamics_user }} --ssh-key-file {{ appdynamics_user_private_key }} --platform-name {{ appdynamics_platform_name }}"
+  
+- name: add Controller host
+  shell: "{{ enterprise_controller_home }}/bin/platform-admin.sh add-hosts --hosts {{ appdynamics_controller_host }} --platform-name {{ appdynamics_platform_name }}"
+
+- name: install the Controller
+  shell: "{{ enterprise_controller_home }}/bin/platform-admin.sh submit-job --service controller --job install --args controllerPrimaryHost={{ appdynamics_controller_host }} controllerAdminUsername={{ appdynamics_controller_admin_username }} controllerAdminPassword={{ appdynamics_controller_admin_password }} controllerRootUserPassword={{ appdynamics_controller_root_password }} newDatabaseRootPassword={{ appdynamics_controller_DB_root_password }} newDatabaseUserPassword={{ appdynamics_controller_DB_user_password }} controllerDBHost={{ appdynamics_controller_DB_host }} controllerProfile={{ appdynamics_controller_profile_size }} controllerDBPort={{ appdynamics_controller_DB_port }}"
+  async: 1800
+  poll: 30
+  no_log: true

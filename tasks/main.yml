@@ -1,0 +1,14 @@
+---
+
+- name: ensure target meets controller requirements
+  include: validate_controller_requirements.yml
+
+- name: tune OS for Controller
+  include: prepare_controller_host_os.yml
+
+- name: install the Controller
+  include: install_controller.yml
+
+- name: configure the Controller
+
+- name: verify the Controller is running

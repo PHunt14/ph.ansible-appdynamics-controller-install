@@ -1,0 +1,21 @@
+---
+
+- name: validate the resource configurations
+  block:
+  
+  - name: verify that there are atleast 8 CPU 
+    assert:
+      that: "{{ ansible_processor_count }} >= 8"
+      
+  - name: verify that there are at least 21GB of RAM
+    assert:
+      that: "{{ ansible_memory_mb.real.total }} >= 21000"
+      
+  rescue:
+  
+  - debug:
+      msg: "Server does not meet the requirements, please correct and re-run the play."
+      
+  - meta: end_play
+  
+...

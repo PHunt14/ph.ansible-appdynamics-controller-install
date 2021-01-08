@@ -1,0 +1,4 @@
+{{ appdynamics_user }} hard nofile 65535
+{{ appdynamics_user }} soft nofile 65535
+{{ appdynamics_user }} hard nproc 8192
+{{ appdynamics_user }} soft nproc 8192
